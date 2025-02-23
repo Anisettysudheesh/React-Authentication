@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 dotEnv.config();
 const Register = require('./mongo');
 const middleware = require('./middleware');
+const bcrypt = require("bcrypt")
 
 
 const app =express();
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 app.post("/register", async (req, res) => {
     try{
         const {username, email, password, confirmpassword} = req.body;
+        const bcrypt = require('bcrypt');
 
         const exist =await Register.findOne({email:email})
         if(exist){
@@ -31,11 +33,14 @@ app.post("/register", async (req, res) => {
         if(password !== confirmpassword){
             return res.status(400).send("Password and confirmpassword doesnot matches")
         }
-  
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        
+       
         const newUser = new Register({
             username,
             email,
-            hashpassword,
+            password: hashedPassword,
             confirmpassword
            
         });
@@ -58,7 +63,8 @@ app.post("/register", async (req, res) => {
            
 
         
-            if(exist.password !== password){
+            const isMatch = await bcrypt.compare(password, exist.password);
+            if (!isMatch) {
                 return res.status(400).send("Password is incorrect");
             }
 
