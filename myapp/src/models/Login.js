@@ -30,7 +30,7 @@ function Login() {
                    
                 }
     
-                const sendData = await axios.post("http://localhost:5000/login", Data);
+                const sendData = await axios.post("https://auth-frontend-one-eta.vercel.app/", Data);
                 const receivedToken = sendData.data.token;
                 setToken(receivedToken);
                 const decodedToken = jwtDecode(receivedToken);
