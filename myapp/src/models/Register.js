@@ -28,7 +28,7 @@ const navigate = useNavigate();
                     confirmpassword: confirmpassword
                 }
     
-                const sendData = await axios.post("https://auth-frontend-one-eta.vercel.app/register",Data)
+                const sendData = await axios.post("https://auth-backend-plum.vercel.app/register",Data)
 
                 if(sendData.status === 200)
                 {
