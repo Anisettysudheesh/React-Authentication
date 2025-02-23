@@ -20,7 +20,7 @@ app.use(cors(
 ));
 app.use(express.json());
 
-mongoose.connect(MONGO_URL)
+mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log('MongoDB connected'))  
 
 app.get('/', (req, res) => { 
