@@ -14,7 +14,7 @@ const app =express();
 app.use(cors(
     orgin:["https://auth-frontend-one-eta.vercel.app"],
     methods:["POST","GET"],
-    credentials"true
+    credentials: true
 ));
 app.use(express.json());
 
