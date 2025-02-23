@@ -11,7 +11,11 @@ const bcrypt = require("bcrypt")
 
 const app =express();
 
-app.use(cors());
+app.use(cors(
+    orgin:["https://auth-frontend-one-eta.vercel.app"],
+    methods:["POST","GET"],
+    credentials"true
+));
 app.use(express.json());
 
 mongoose.connect(MONGO_URL)
