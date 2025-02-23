@@ -13,7 +13,7 @@ const app =express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGO_URL)
+mongoose.connect(MONGO_URL)
 .then(() => console.log('MongoDB connected'))  
 
 app.get('/', (req, res) => { 
