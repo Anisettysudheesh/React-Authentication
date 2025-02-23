@@ -19,7 +19,7 @@ function Dashboard() {
     useEffect( ()=>{
         const fetchData = async () => {
             try{
-                const res = await axios.get("http://localhost:5000/dashboard",{
+                const res = await axios.get("https://auth-backend-roan.vercel.app/dashboard",{
                     headers:{
                         "x-token":storedToken,
                         "x-user-id":userId
