@@ -8,15 +8,21 @@ function Dashboard() {
     const[token]=useContext(store)
     const [data,setData]= useState(null)
     const navigate=useNavigate()
-    if(!token)
-        navigate('/login')
+    const userId = localStorage.getItem('userId');
+    const storedToken = localStorage.getItem('token');
+    useEffect(() => {
+        if (!token) {
+            navigate('/login');
+        }
+    }, [token, navigate]);
 
     useEffect( ()=>{
         const fetchData = async () => {
             try{
                 const res = await axios.get("http://localhost:5000/dashboard",{
                     headers:{
-                        "x-token":token
+                        "x-token":storedToken,
+                        "x-user-id":userId
                     }
                 })
                 setData(res.data)
@@ -28,7 +34,7 @@ function Dashboard() {
             }
         };
         fetchData();
-    }, [token])
+    }, [storedToken,userId])
 
 
     return ( 

@@ -3,6 +3,7 @@ import axios from 'axios';
 import "../App.css";
 import {store} from "../App.js"
 import { useNavigate} from "react-router-dom";
+import {jwtDecode} from 'jwt-decode';
 
 function Login() {
    
@@ -10,6 +11,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [token, setToken] = useContext(store);
     const navigate = useNavigate();
+  
  
     const Submit = async (e)=>{
 
@@ -29,7 +31,13 @@ function Login() {
                 }
     
                 const sendData = await axios.post("http://localhost:5000/login", Data);
-                setToken(sendData.data.token);
+                const receivedToken = sendData.data.token;
+                setToken(receivedToken);
+                const decodedToken = jwtDecode(receivedToken);
+                const userId = decodedToken.user.id;
+                localStorage.setItem('token', receivedToken);
+                localStorage.setItem('userId', userId);
+
 
                 if(token)
                     navigate('/dashboard');
@@ -65,7 +73,7 @@ function Login() {
                 <input type="password" name="password" placeholder='Enter your password' autoComplete="off"  onChange={(e)=>{setPassword(e.target.value)}}/>
             </div>
            
-            <button type="submit">Register</button>
+            <button type="submit">Login</button>
         </form>
         </center>
     </div>  ;
