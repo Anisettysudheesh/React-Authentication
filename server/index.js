@@ -13,7 +13,7 @@ const app =express();
 
 app.use(cors(
     {
-    orgin:["https://auth-frontend-one-eta.vercel.app"],
+    orgin:["*"],
     methods:["POST","GET"],
     credentials: true,
         optionsSuccessStatus: 204,
